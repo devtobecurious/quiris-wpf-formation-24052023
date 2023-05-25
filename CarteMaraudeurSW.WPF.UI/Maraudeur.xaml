@@ -15,7 +15,8 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"></RowDefinition>
-            <RowDefinition Height="9*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="7*"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" ButtonBase.Click="StackPanel_Click" HorizontalAlignment="Center" >
             <Button Content="1"></Button>
@@ -24,8 +25,18 @@
             <Button Content="4"></Button>
         </StackPanel>
 
-        <Label Grid.Row="1" Content="Maraudeur !">
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label>Chemin de l'image</Label>
+            <TextBox x:Name="PathToImage" Text="pack://application:,,,/Images/wookie.png"  Grid.Row="0" Grid.Column="3" Width="100"></TextBox>
+            <Image Grid.Column="1" Source="{Binding ElementName=PathToImage, Path=Text, UpdateSourceTrigger=PropertyChanged}"></Image>
+        </Grid>
 
+        <Label Grid.Row="2" Content="Maraudeur !">
         </Label>
     </Grid>
 </Window>

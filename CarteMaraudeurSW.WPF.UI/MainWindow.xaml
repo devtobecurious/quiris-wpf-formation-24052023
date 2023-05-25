@@ -4,10 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarteMaraudeurSW.WPF.UI"
+        xmlns:models="clr-namespace:CarteMaraudeurSW.Core.Models;assembly=CarteMaraudeurSW.Core.Models"
         mc:Ignorable="d"
         Title="Carte du maraudeur" Height="450" Width="800">
-    <Window.Resources>
-        
+    <Window.Resources>        
         <SolidColorBrush x:Key="ForeGroundBisButton" Color="DarkOrange"></SolidColorBrush>
 
         <Style TargetType="Button">
@@ -17,10 +17,36 @@
         <Style TargetType="Button" x:Key="VioletSmallButton" BasedOn="{StaticResource VioletButton}">
             <Setter Property="Width" Value="20"></Setter>
         </Style>
+
+        <DataTemplate DataType="{x:Type models:Wookiee}">
+            <!---->
+            <!--Pour chaque wookie-->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Content="{Binding Libelle}" FontWeight="Bold"></Label>
+                <Image Source="{Binding Avatar}" Grid.Row="1"></Image>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type models:Wookiee}" x:Key="WookieLibelleTemplate">
+            <!---->
+            <!--Pour chaque wookie-->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Content="{Binding Libelle}" FontWeight="Bold"></Label>
+            </Grid>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
@@ -28,14 +54,27 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
         </Grid.RowDefinitions>
         <Button x:Name="btnOpen" Content="Ouvrir" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" ></Button>
 
         <Button x:Name="btnChangeStyleButton" Click="btnChangeStyleButton_Click" Content="Change style"></Button>
 
-        <Button Grid.Row="2">
-            <Image Source="pack://application:,,,/Images/wookie.png" ></Image> 
+        <Button x:Name="btnMove" Click="btnMove_Click" Grid.Row="2" Content="Move"></Button>
+        <Button Grid.Row="2" x:Name="btnPerso" Grid.Column="1">
+            <Image Source="pack://application:,,,/Images/wookie.png" ></Image>
+            <Button.RenderTransform>
+                <TranslateTransform X="10" Y="20"></TranslateTransform>
+            </Button.RenderTransform>
         </Button>
+        
+        <!--2° item ligne-->
+        <Slider x:Name="sliderFont" Grid.Column="0" Grid.Row="1" Maximum="100" Value="10" TickFrequency="1" VerticalAlignment="Center"></Slider>
+
+        <Label Grid.Column="1" Grid.Row="1" FontSize="{Binding ElementName=sliderFont, Path=Value}" Content="Maraudeur !"></Label>
+
+        <!--Je lie la taille de mon champs text à la valeur saisie-->
+        <TextBox Grid.Column="2" Grid.Row="1" Width="{Binding RelativeSource={RelativeSource Self}, Path=Text}"></TextBox>
 
         <!--<Button Grid.Row="2">
             <Grid>
@@ -50,5 +89,23 @@
         <!--<Label Grid.Row="2" ButtonBase.Click="Label_Click">
             <Button Content="Aller !"></Button>
         </Label>-->
+
+        <ListBox Grid.Row="3" x:Name="lstWookies" Grid.ColumnSpan="4" Margin="0, 20, 0, 0" 
+                               ItemTemplate="{Binding Source={StaticResource WookieLibelleTemplate}}">
+            <!--On écrase le DataTemplate par défaut par le nôtre-->
+            <!--<ListBox.ItemTemplate>-->
+                <!--<DataTemplate>
+                    --><!--Pour chaque wookie--><!--
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Content="{Binding Libelle}" FontWeight="Bold"></Label>
+                        <Image Source="{Binding Avatar}" Grid.Row="1"></Image>
+                    </Grid>
+                </DataTemplate>-->
+            <!--</ListBox.ItemTemplate>-->
+        </ListBox>
     </Grid>
 </Window>

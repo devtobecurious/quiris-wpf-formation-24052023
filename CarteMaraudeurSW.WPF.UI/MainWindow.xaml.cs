@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using CarteMaraudeurSW.Core.Models;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,6 +17,8 @@ namespace CarteMaraudeurSW.WPF.UI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static Random random = new();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -24,6 +27,19 @@ namespace CarteMaraudeurSW.WPF.UI
 
             this.btnOpen.Content = "Open maraudeur";
             this.btnOpen.Style = this.Resources["VioletSmallButton"] as Style;
+
+            this.lstWookies.ItemsSource = new List<Wookiee>()
+            {
+                new () { Libelle = "Chewie", Id = 1, Avatar = "pack://application:,,,/Images/wookie.png" },
+                new () { Libelle = "Chewa", Id = 2 }
+            };
+
+
+        }
+
+        private void btnMove_Click(object sender, RoutedEventArgs e)
+        {
+            this.btnPerso.RenderTransform = new TranslateTransform(random.Next(-500, 500), random.Next(-500, 500));
         }
 
         private void btnOpen_Click(object sender, RoutedEventArgs e)
@@ -53,5 +69,7 @@ namespace CarteMaraudeurSW.WPF.UI
         {
 
         }
+
+        
     }
 }
