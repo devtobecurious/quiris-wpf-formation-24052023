@@ -9,7 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\wookie.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CarteMaraudeurSW.Core.Models\CarteMaraudeurSW.Core.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\wookie.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

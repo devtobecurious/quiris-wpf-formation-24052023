@@ -1,6 +1,13 @@
 ﻿using CarteMaraudeurSW.Core.Models;
 
 Wookiee wookiee = new Wookiee();
+
+if (! string.IsNullOrEmpty(wookiee.Libelle))
+{
+    var libelleTolower = wookiee.Libelle.ToLower();
+}
+
+
 Wookiee wookiee2 = new();
 var wookie3 = new Wookiee();
 Wookiee test = wookiee;
